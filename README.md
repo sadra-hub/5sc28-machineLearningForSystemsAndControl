@@ -1,9 +1,6 @@
 # 5SC28 - Machine Learning for Systems and Control
 
-This repository contains information on the course 5SC28 
-
 This repository contains exercises and materials for the course **5SC28** at **TU Eindhoven**: *Machine Learning for Systems and Control*.  
-It is structured into two main directories, each containing data and scripts relevant to Assignment 1 and Assignment 2.
 
 ## Contributors
 

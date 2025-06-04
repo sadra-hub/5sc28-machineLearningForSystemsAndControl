@@ -1,11 +1,11 @@
 import pandas as pd
 from sklearn.metrics import mean_squared_error
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, WhiteKernel
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import GPy
 import numpy as np
+
+# Set random seed for reproducibility
 np.random.seed(101)
 
 # === Load dataset (no header) ===
@@ -22,7 +22,8 @@ df['u_t'] = df['u']
 df['u_tm1'] = df['u'].shift(1)
 df['th_tp1'] = df['th'].shift(-1)  # target
 
-df.dropna(inplace=True)
+# === Drop rows with NaN values due to shifting ===
+df.dropna(inplace=True) 
 
 # === Inputs (X) and target (y) as Arrays NOT Dataframes ===
 X = df[['th_t', 'th_tm1', 'u_t', 'u_tm1']].values
@@ -32,6 +33,7 @@ y = df['th_tp1'].values.reshape(-1,1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=20)
 
 
+#TODO: @Muhammed6982: Explain Why you commended out this part
 # === Split dataset into Train dataset and Test+Inducing (TI) Dataset ===
 #X_train, X_TI, y_train, y_TI = train_test_split(X, y, test_size=0.3, random_state=20)
 #print(y_train.shape)

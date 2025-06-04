@@ -1,3 +1,6 @@
+#TODO: @Muhammed6982: Explain Why you commended out this part
+#TODO: @Muhammed6982: add a graph to visualize the results (so we can compare it with results in Gaussianprocesses.ipynb)
+
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -33,7 +36,6 @@ y = df['th_tp1'].values.reshape(-1,1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=20)
 
 
-#TODO: @Muhammed6982: Explain Why you commended out this part
 # === Split dataset into Train dataset and Test+Inducing (TI) Dataset ===
 #X_train, X_TI, y_train, y_TI = train_test_split(X, y, test_size=0.3, random_state=20)
 #print(y_train.shape)

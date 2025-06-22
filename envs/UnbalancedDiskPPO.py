@@ -46,7 +46,7 @@ class UnbalancedDisk(gym.Env):
         sol = solve_ivp(f, [0, self.dt], [self.th, self.omega])
         self.th, self.omega = sol.y[:, -1]
 
-        # --- revised reward shaping ---
+        # --- reward shaping ---
         theta = (self.th + np.pi) % (2 * np.pi) - np.pi  # normalize to [-π, π]
         omega = self.omega
 

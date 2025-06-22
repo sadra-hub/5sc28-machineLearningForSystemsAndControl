@@ -1,3 +1,7 @@
+# This script used stable_baselines3 for training a PPO agent to learn how to balance a unbalanced disk. 
+# The reward function is located the env/UnbalancedDiskPPO.py file, which is designed to encourage the agent
+# to keep the disk upright while minimizing its angular velocity.
+
 import gymnasium as gym
 import numpy as np
 import matplotlib.pyplot as plt

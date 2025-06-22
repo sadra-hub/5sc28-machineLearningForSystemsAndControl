@@ -1,3 +1,6 @@
+# This script runs the last trained PPO model and renders the results in a gymnasium environment.
+# Currently, it uses the policy from the "PTH/ppo_500" directory
+
 import gymnasium as gym
 import time
 from stable_baselines3 import PPO

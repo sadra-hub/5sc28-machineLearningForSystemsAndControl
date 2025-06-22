@@ -4,7 +4,7 @@ from stable_baselines3 import PPO
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), "envs"))
-from UnbalancedDisk import UnbalancedDisk_sincos
+from UnbalancedDiskPPO import UnbalancedDisk_sincos
 
 # === Define a wrapper to make the environment compatible with SB3 ===
 class DiskWrapper(gym.Env):
@@ -31,7 +31,7 @@ class DiskWrapper(gym.Env):
 
 # === Load the environment and model ===
 env = DiskWrapper()
-model = PPO.load("ppo_unbalanced_disk", env=env)
+model = PPO.load("PTH/ppo_500", env=env)
 
 # === Run the model and render the result ===
 obs, _ = env.reset()

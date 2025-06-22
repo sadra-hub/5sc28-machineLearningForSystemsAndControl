@@ -12,7 +12,7 @@ from stable_baselines3.common.monitor import Monitor
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), "envs"))
-from UnbalancedDisk import UnbalancedDisk_sincos
+from UnbalancedDiskPPO import UnbalancedDisk_sincos # type: ignore
 
 # Wrap the custom environment for compatibility with SB3
 class DiskWrapper(gym.Env):

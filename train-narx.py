@@ -7,16 +7,18 @@ device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 
 #### Define hyperparameters ####
-#[TODO]
+EPOCHS = 4000
+LR = 1e-3
+HIDDEN_SIZE = 1024
 
 
 
 #### Load training and test data ####
-out = np.load('training-val-test-data.npz')
+out = np.load('./NPZ/training-val-test-data.npz')
 th_train = out['th'] #th[0],th[1],th[2],th[3],...
 u_train = out['u'] #u[0],u[1],u[2],u[3],...
 
-data = np.load('hidden-test-simulation-submission-file.npz')
+data = np.load('./NPZ/hidden-test-simulation-submission-file.npz')
 u_hidden_test = data['u']
 th_hidden_test = data['th'] #only the first 50 values are filled the rest are zeros
 
@@ -42,7 +44,8 @@ Xtrain, Xval, Ytrain, Yval = train_test_split(X, y, test_size=0.2, random_state=
 
 #### Define and train the model ####
 #[TODO]
-model = 
+from narx import NARX
+model = NARX(input_size=Xtrain.shape[1], hidden_size=HIDDEN_SIZE, device=device, epochs=EPOCHS).to(device)
 model.fit(Xtrain, Ytrain)
 
 
@@ -94,3 +97,17 @@ th_hidden_test_sim = simulation_IO_model(lambda x: model.predict(x[None,:])[0], 
 
 assert len(th_hidden_test_sim)==len(th_hidden_test)
 np.savez('hidden-test-simulation-narx-submission-file.npz', th=th_hidden_test_sim, u=u_hidden_test)
+
+
+#train prediction errors:
+#RMS: 0.002681949987235875 radians
+#RMS: 0.15366441513378065 degrees
+#NRMS: 0.5615607081516221 %
+#validation prediction errors:
+#RMS: 0.0032344589961870785 radians
+#RMS: 0.18532084948964042 degrees
+#NRMS: 0.664928417702889 %
+#train simulation errors:
+#RMS: 0.015171805336877184 radians
+#RMS: 0.8692804133971208 degrees
+#NRMS: 3.165162547764122 %

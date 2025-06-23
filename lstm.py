@@ -2,19 +2,28 @@ import torch.nn as nn
 import torch
 
 
+
+
 class LSTMRegressor(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers):
         super().__init__()
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
-        self.fc = nn.Linear(hidden_size, hidden_size)
-        self.fc_out = nn.Linear(hidden_size, 1)
+
+        # Match NARX's 3-layer MLP after LSTM output
+        self.lay1 = nn.Linear(hidden_size, hidden_size)
+        self.lay2 = nn.Linear(hidden_size, hidden_size)
+        self.lay3 = nn.Linear(hidden_size, hidden_size)
+        self.output = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
+        # x: (batch_size, seq_len, input_size)
         out, _ = self.lstm(x)
-        out = out[:, -1, :]
-        out = self.fc(out)
-        out = torch.relu(out)
-        out = self.fc_out(out)
+        # Only use the final output like the NARX (no time-pooling or attention)
+        out = out[:, -1, :]  # shape: (batch_size, hidden_size)
+        out = torch.relu(self.lay1(out))
+        out = torch.relu(self.lay2(out))
+        out = torch.relu(self.lay3(out))
+        out = self.output(out)
         return out.squeeze(-1)
 
 class LSTM(nn.Module):

@@ -14,7 +14,8 @@ class NARX_Regressor(nn.Module):
         x = torch.relu(self.lay1(x))
         x = torch.relu(self.lay2(x))
         x = torch.relu(self.lay3(x))
-        return self.output(x)
+        x = self.output(x)
+        return x
 
 class NARX(nn.Module):
     def __init__(self, input_size, device, hidden_size=1024, epochs=2000, lr=1e-3):

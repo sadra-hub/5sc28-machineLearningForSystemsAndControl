@@ -7,7 +7,7 @@ device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 
 #### Define hyperparameters ####
-EPOCHS = 4000
+EPOCHS = 30
 LR = 1e-3
 HIDDEN_SIZE = 1024
 
@@ -111,3 +111,4 @@ np.savez('hidden-test-simulation-narx-submission-file.npz', th=th_hidden_test_si
 #RMS: 0.015171805336877184 radians
 #RMS: 0.8692804133971208 degrees
 #NRMS: 3.165162547764122 %
+

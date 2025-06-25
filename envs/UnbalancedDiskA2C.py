@@ -175,9 +175,13 @@ class UnbalancedDisk(gym.Env):
                 arrow_rot = pygame.transform.flip(arrow_rot, True, False)
                 
         self.surf = pygame.transform.flip(self.surf, False, True)
-        self.viewer.blit(self.surf, (0, 0))
+        # Draw arrow directly onto self.surf, so it's captured in video
         if self.u:
-            self.viewer.blit(arrow_rot, (screen_width//2-arrow_size//2, screen_height//2-arrow_size//2))
+            self.surf.blit(arrow_rot, (screen_width//2 - arrow_size//2, screen_height//2 - arrow_size//2))
+
+        # Now blit to window
+        self.viewer.blit(self.surf, (0, 0))
+
         if self.render_mode == "human":
             pygame.event.pump()
             pygame.display.flip()
